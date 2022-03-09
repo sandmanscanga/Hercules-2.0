@@ -1,13 +1,13 @@
 """Module for running the Hercules attack script"""
-from parse.main import get_args
+from parse.main import get_browser
 
 
-def main(args):
-    args.display_final()
+def main(browser):
+    browser.display_final()
 
 
 if __name__ == "__main__":
     import argparse
 
-    args = get_args(argparse)
-    main(args)
+    browser = get_browser(argparse)
+    main(browser)

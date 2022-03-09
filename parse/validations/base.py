@@ -75,11 +75,22 @@ class ValidationBase(ValidationBaseUtils):
     def validate_payload(self):
         """Validates payload argument"""
 
-        payload = self.raw_args.payload
-        if "^USER^" not in payload:
+        _payload = self.raw_args.payload
+        if "^USER^" not in _payload:
             raise Exception("^USER^ directive not found in payload")
-        if "^PASS^" not in payload:
+        if "^PASS^" not in _payload:
             raise Exception("^PASS^ directive not found in payload")
+
+        payload = {}
+        for field in _payload.split("&"):
+            if field != "":
+                key_value = field.split("=", 1)
+                if len(key_value) == 1:
+                    key = key_value[0]
+                    value = ""
+                else:
+                    key, value = key_value
+                payload[key] = value
 
         self.payload = payload
 
