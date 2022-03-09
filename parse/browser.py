@@ -1,8 +1,9 @@
-"""Module for storing validated arguments"""
+"""Module for handling the browser"""
+from parse.base import BrowserBase
 
 
-class Parser:
-    """Parse validated arguments"""
+class Browser(BrowserBase):
+    """Class defining the browser"""
 
     def __init__(self, valid_args):
         self.username = valid_args.username
@@ -22,6 +23,18 @@ class Parser:
         self.cookie = valid_args.cookie
         self.finish = valid_args.finish
         self.verbose = valid_args.verbose
+
+        browser, data_key = self.get_browser()
+        user_key, pass_key = self.get_payload_keys()
+        total_usernames = self.get_total_usernames()
+        total_passwords = self.get_total_passwords()
+
+        self.browser = browser
+        self.data_key = data_key
+        self.user_key = user_key
+        self.pass_key = pass_key
+        self.total_usernames = total_usernames
+        self.total_passwords = total_passwords
 
     def display_final(self):
         """Display final arguments"""

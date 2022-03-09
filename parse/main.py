@@ -1,10 +1,10 @@
 """Module for parsing and validating raw arguments"""
 from parse.define import Definition
 from parse.validate import Validation
-from parse.parser import Parser
+from parse.browser import Browser
 
 
-def get_args(argparse):
+def get_browser(argparse):
     """Parse and validate raw arguments"""
 
     arg_parser = Definition()
@@ -15,6 +15,6 @@ def get_args(argparse):
     valid_args = Validation(raw_args)
     valid_args.validate()
 
-    args = Parser(valid_args)
+    browser = Browser(valid_args)
 
-    return args
+    return browser

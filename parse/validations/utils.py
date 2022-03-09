@@ -5,6 +5,8 @@ class ValidationBaseUtils:
     
     @staticmethod
     def is_valid_read_file(filepath):
+        """Checks if file read throws exception"""
+
         error = None
 
         try:
@@ -20,6 +22,8 @@ class ValidationBaseUtils:
 
     @staticmethod
     def is_valid_write_file(filepath):
+        """Checks if file write throws exception"""
+
         error = None
 
         try:
