@@ -14,6 +14,8 @@ class DefinitionLoader(DefinitionBase):
         """Loads all argument definitions"""
 
         definitions = [
+            self.runmode(),
+            self.wordlist(),
             self.username(),
             self.userfile(),
             self.password(),

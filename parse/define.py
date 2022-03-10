@@ -33,6 +33,8 @@ class Definition:
         """Display raw arguments"""
 
         print("[*] Displaying raw arguments...")
+        print(f"[*] runmode       :  {self.runmode}               ")
+        print(f"[*] wordlist      :  {self.wordlist}              ")
         print(f"[*] username      :  {self.raw_args.username}     ")
         print(f"[*] userfile      :  {self.raw_args.userfile}     ")
         print(f"[*] password      :  {self.raw_args.password}     ")

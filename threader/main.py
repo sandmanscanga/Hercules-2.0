@@ -65,18 +65,18 @@ class Threader:
                 break  # received local kill signal
 
             result = instance.attack_function(data)
-            if result is False:
-                with instance.semaphore:
-                    if Threader.STOP_SIGNAL is False:
-                        Threader.CURRENT += 1
-                        args = (data, result, child_id, Threader.CURRENT)
-                        _ = instance.result_function(args)
-            else:
+            if result:
                 with instance.semaphore:
                     Threader.CURRENT += 1
                     args = (data, result, child_id, Threader.CURRENT)
                     finish = instance.result_function(args)
                     if finish is True:
                         Threader.STOP_SIGNAL = True  # send global kill signal
+            else:
+                with instance.semaphore:
+                    if Threader.STOP_SIGNAL is False:
+                        Threader.CURRENT += 1
+                        args = (data, result, child_id, Threader.CURRENT)
+                        _ = instance.result_function(args)
 
             instance.que.task_done()

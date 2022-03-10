@@ -28,6 +28,8 @@ class ValidationBaseUtils:
         try:
             with open(filepath, "w") as file:
                 pass
+        except FileNotFoundError:
+            pass
         except PermissionError as exc:
             error = exc
 

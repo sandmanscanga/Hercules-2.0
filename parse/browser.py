@@ -6,6 +6,8 @@ class Browser(BrowserBase):
     """Class defining the browser"""
 
     def __init__(self, valid_args):
+        self.runmode = valid_args.runmode
+        self.wordlist = valid_args.wordlist
         self.username = valid_args.username
         self.userfile = valid_args.userfile
         self.password = valid_args.password
@@ -28,6 +30,7 @@ class Browser(BrowserBase):
         user_key, pass_key = self.get_payload_keys()
         total_usernames = self.get_total_usernames()
         total_passwords = self.get_total_passwords()
+        total_directories = self.get_total_directories()
 
         self.driver = driver
         self.data_key = data_key
@@ -35,13 +38,17 @@ class Browser(BrowserBase):
         self.pass_key = pass_key
         self.total_usernames = total_usernames
         self.total_passwords = total_passwords
+        self.total_directories = total_directories
 
         self.found_creds = []
+        self.found_dirs = []
 
     def display_final(self):
         """Display final arguments"""
 
         print("[*] Displaying final arguments...")
+        print(f"[*] runmode       :  {self.runmode}      ")
+        print(f"[*] wordlist      :  {self.wordlist}     ")
         print(f"[*] username      :  {self.username}     ")
         print(f"[*] userfile      :  {self.userfile}     ")
         print(f"[*] password      :  {self.password}     ")

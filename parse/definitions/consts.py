@@ -3,6 +3,8 @@
 DESCRIPTION = """
 Hercules is a tool used for username and password bruteforce.
 
+It can also be used for directory bruteforce.
+
 Command syntax is similar to the Kali Linux tool, Hydra.
 """
 

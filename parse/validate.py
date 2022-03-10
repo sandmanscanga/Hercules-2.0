@@ -7,6 +7,8 @@ class Validation(ValidationBase):
 
     def __init__(self, raw_args):
         self.raw_args = raw_args
+        self.runmode = None
+        self.wordlist = None
         self.username = None
         self.userfile = None
         self.password = None
@@ -28,6 +30,8 @@ class Validation(ValidationBase):
     def validate(self):
         """Run validation on raw arguments"""
 
+        self.validate_runmode()
+        self.validate_wordlist()
         self.validate_user()
         self.validate_pass()
         self.validate_method()
@@ -43,6 +47,8 @@ class Validation(ValidationBase):
         """Display validated arguments"""
 
         print("[*] Displaying validated arguments...")
+        print(f"[*] runmode       :  {self.runmode}      ")
+        print(f"[*] wordlist      :  {self.wordlist}     ")
         print(f"[*] username      :  {self.username}     ")
         print(f"[*] userfile      :  {self.userfile}     ")
         print(f"[*] password      :  {self.password}     ")
