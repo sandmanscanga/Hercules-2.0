@@ -6,6 +6,34 @@ class DefinitionBase:
     """Contains all the argument definition functions"""
 
     @staticmethod
+    def runmode():
+        """Determines attack mode to run in"""
+
+        args = ("-r", "--runmode")
+        kwargs = dict(
+            dest="runmode",
+            metavar="runmode",
+            required=True,
+            type=str,
+            help="specify the attack mode to run in"
+        )
+        return args, kwargs
+
+    @staticmethod
+    def wordlist():
+        """A wordlist of directories"""
+
+        args = ("-w", "--wordlist")
+        kwargs = dict(
+            dest="wordlist",
+            metavar="wordlist",
+            required=False,
+            type=str,
+            help="specify a wordlist of directories"
+        )
+        return args, kwargs
+
+    @staticmethod
     def username():
         """Use a single username instead of a wordlist"""
 
@@ -98,7 +126,7 @@ class DefinitionBase:
         kwargs = dict(
             dest="payload",
             metavar="payload",
-            required=True,
+            required=False,
             type=str,
             help="specify the GET/POST payload to inject into"
         )
