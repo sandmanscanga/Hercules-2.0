@@ -31,12 +31,11 @@ def main(browser):
             data = (browser, browser.username, browser.password)
             threader.add_job(data)
 
-    # threader.add_job(job)
     exit_signal = threader.join_threads()
     if exit_signal is False:
         print("\n[!] Killed prematurely")
-    else:
-        print("[*] Finished")
+    
+    browser.display_found_creds()
 
 
 if __name__ == "__main__":

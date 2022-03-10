@@ -36,6 +36,8 @@ class Browser(BrowserBase):
         self.total_usernames = total_usernames
         self.total_passwords = total_passwords
 
+        self.found_creds = []
+
     def display_final(self):
         """Display final arguments"""
 

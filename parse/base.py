@@ -107,6 +107,7 @@ class BrowserBase:
                 with open(self.outfile, "a") as file:
                     file.write(creds_msg + "\n")
             print(f"[+] {progress_msg} {child_msg} {creds_msg}")
+            self.found_creds.append(creds_msg)
         else:
             if self.verbose is True:
                 print(f"[-] {progress_msg} {child_msg} {creds_msg}")
@@ -121,6 +122,22 @@ class BrowserBase:
         percentage_rounded = round(percentage, 2)
 
         return percentage_rounded
+
+    def get_total_found_creds(self):
+        """Gets the total number of found credentials"""
+
+        return len(self.found_creds)
+
+    def display_found_creds(self):
+        """Displays the found credentials"""
+
+        total_found_creds = self.get_total_found_creds()
+        if total_found_creds == 0:
+            print("[-] No credentials found")
+        else:
+            print(f"[*] Found {total_found_creds} total credentials")
+            for credential in self.found_creds:
+                print(f"[+] {credential}")
 
     @staticmethod
     def get_total_words(wordlist):
