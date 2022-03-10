@@ -20,7 +20,7 @@ class ValidationBase(ValidationBaseUtils):
             error = self.is_valid_read_file(userfile)
             if error is not None:
                 raise Exception(f"Invalid userfile: {error}")
-        elif username and userfile:
+        elif username is not None and userfile is not None:
             raise Exception("Cannot provide both username and userfile")
 
         self.username = username
@@ -37,7 +37,7 @@ class ValidationBase(ValidationBaseUtils):
             error = self.is_valid_read_file(passfile)
             if error is not None:
                 raise Exception(f"Invalid passfile: {error}")
-        elif password and passfile:
+        elif password is not None and passfile is not None:
             raise Exception("Cannot provide both password and passfile")
 
         self.password = password

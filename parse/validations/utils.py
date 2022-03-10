@@ -10,13 +10,12 @@ class ValidationBaseUtils:
         error = None
 
         try:
-            file = open(filepath, "r")
+            with open(filepath, "r") as file:
+                pass
         except FileNotFoundError as exc:
             error = exc
         except PermissionError as exc:
             error = exc
-        else:
-            file.close()
 
         return error
 
@@ -27,10 +26,9 @@ class ValidationBaseUtils:
         error = None
 
         try:
-            file = open(filepath, "w")
+            with open(filepath, "w") as file:
+                pass
         except PermissionError as exc:
             error = exc
-        else:
-            file.close()
 
         return error
