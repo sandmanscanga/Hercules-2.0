@@ -66,7 +66,8 @@ class BrowserBase:
             "headers": {
                 "User-agent": self.agent
             },
-            "cookies": self.cookies,
+            "cookies": self.cookie,
+            "allow_redirects": False,
             self.data_key: payload
         }
         return deepcopy(browser_kwargs)
@@ -81,18 +82,45 @@ class BrowserBase:
             if self.success_code == response.status_code:
                 return True
         elif self.failure_msg is not None:
-            if self.failure_msg in response.text:
+            if self.failure_msg not in response.text:
                 return True
         else:
-            if self.failure_code == response.status_code:
+            if self.failure_code != response.status_code:
                 return True
 
         return False
 
-    def handle_result(self, data, result):
+    def handle_result(self, args):
         """Handles the operations to be performed given a result"""
 
-        pass
+        data, result, child_id, current = args
+
+        _, username, password = data
+        progress = self.calc_progress(current)
+
+        creds_msg = f"{username}:{password}"
+        child_msg = f"(child {str(child_id).zfill(2)})"
+        progress_msg = f"({progress:.2f}%)"
+
+        if result is True:
+            if self.outfile is not None:
+                with open(self.outfile, "a") as file:
+                    file.write(creds_msg + "\n")
+            print(f"[+] {progress_msg} {child_msg} {creds_msg}")
+        else:
+            if self.verbose is True:
+                print(f"[-] {progress_msg} {child_msg} {creds_msg}")
+
+        return self.finish
+
+    def calc_progress(self, current):
+        """Calculates the progress as a percentage"""
+
+        total_words = self.total_usernames * self.total_passwords
+        percentage = (current / total_words) * 100
+        percentage_rounded = round(percentage, 2)
+
+        return percentage_rounded
 
     @staticmethod
     def get_total_words(wordlist):

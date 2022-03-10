@@ -7,6 +7,7 @@ class Threader:
     """Class to handle the threading"""
 
     STOP_SIGNAL = False
+    CURRENT = 0
 
     def __init__(self, total_threads, attack_function, result_function):
         self.total_threads = total_threads
@@ -67,10 +68,14 @@ class Threader:
             if result is False:
                 with instance.semaphore:
                     if Threader.STOP_SIGNAL is False:
-                        _ = instance.result_function(data, result, child_id)
+                        Threader.CURRENT += 1
+                        args = (data, result, child_id, Threader.CURRENT)
+                        _ = instance.result_function(args)
             else:
                 with instance.semaphore:
-                    finish = instance.result_function(data, result, child_id)
+                    Threader.CURRENT += 1
+                    args = (data, result, child_id, Threader.CURRENT)
+                    finish = instance.result_function(args)
                     if finish is True:
                         Threader.STOP_SIGNAL = True  # send global kill signal
 
