@@ -1,6 +1,7 @@
 """Module for handling validation of raw arguments"""
 from parse.validations.utils import ValidationBaseUtils
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote_plus
+from socket import socket, AF_INET, SOCK_STREAM
 
 
 class ValidationBase(ValidationBaseUtils):
@@ -61,11 +62,34 @@ class ValidationBase(ValidationBaseUtils):
         if scheme not in ("http", "https"):
             raise Exception("URL scheme must be HTTP or HTTPS")
 
+        if scheme == "http":
+            _port = 80
+        else:
+            _port = 443
+
         query = parsed_url.query
         if query != "":
             raise Exception("URL query must be set in payload argument")
 
         netloc = parsed_url.netloc
+        if ":" not in netloc:
+            host, port = netloc, _port
+        else:
+            host_port = netloc.split(":")
+            try:
+                host, port = host_port[0], int(host_port[1])
+            except Exception:
+                raise Exception("Invalid host/port combination")
+
+        try:
+            sock = socket(AF_INET, SOCK_STREAM)
+            sock.settimeout(3)
+            sock.connect((host, port))
+        except Exception:
+            raise Exception(f"Could not connect to {host} on port {port}")
+        finally:
+            sock.close()
+
         uripath = parsed_url.path
         if uripath == "":
             uripath = "/"
@@ -90,7 +114,7 @@ class ValidationBase(ValidationBaseUtils):
                     value = ""
                 else:
                     key, value = key_value
-                payload[key] = value
+                payload[key] = unquote_plus(value)
 
         self.payload = payload
 

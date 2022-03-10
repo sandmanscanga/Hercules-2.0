@@ -6,18 +6,18 @@ import requests
 class BrowserBase:
     """Class for supporting the Browser class"""
 
-    def get_browser(self):
+    def get_driver(self):
         """Gets the browser driver and keyword"""
 
-        browser, data_key = None, None
+        driver, data_key = None, None
         if self.method == "POST":
-            browser = requests.post
+            driver = requests.post
             data_key = "data"
         else:
-            browser = requests.get
+            driver = requests.get
             data_key = "params"
 
-        return browser, data_key
+        return driver, data_key
 
     def get_payload_keys(self):
         """Gets the payload username and password key"""
@@ -34,26 +34,18 @@ class BrowserBase:
     def get_total_usernames(self):
         """Get the total usernames to be looped through"""
 
-        total_usernames = None
-        if self.userfile is None:
-            total_usernames = 1
-        else:
-            with open(self.userfile, "r") as file:
-                total = max(index for index, line in enumerate(file))
-            total_usernames = total + 1
+        total_usernames = 1
+        if self.userfile is not None:
+            total_usernames = self.get_total_words(self.userfile)
 
         return total_usernames
 
     def get_total_passwords(self):
         """Get the total passwords to be looped through"""
 
-        total_passwords = None
-        if self.userfile is None:
-            total_passwords = 1
-        else:
-            with open(self.userfile, "r") as file:
-                total = max(index for index, line in enumerate(file))
-            total_passwords = total + 1
+        total_passwords = 1
+        if self.passfile is not None:
+            total_passwords = self.get_total_words(self.passfile)
 
         return total_passwords
 
@@ -96,6 +88,22 @@ class BrowserBase:
                 return True
 
         return False
+
+    def handle_result(self, data, result):
+        """Handles the operations to be performed given a result"""
+
+        pass
+
+    @staticmethod
+    def get_total_words(wordlist):
+        """Gets the total number of words in a wordlist"""
+
+        total_words = None
+        with open(wordlist, "r") as file:
+            total = max(index for index, line in enumerate(file))
+        total_words = total + 1
+
+        return total_words
 
     @staticmethod
     def gen_wordlist(wordlist):
