@@ -56,9 +56,7 @@ class BrowserBase:
     def get_total_directories(self):
         """Get the total directories to be looped through"""
 
-        total_directories = 1
-        if self.wordlist is not None:
-            total_directories = self.get_total_words(self.wordlist)
+        total_directories = self.get_total_dir_words()
 
         return total_directories
 
@@ -248,6 +246,15 @@ class BrowserBase:
             for directory in self.found_dirs:
                 print(f"[+] {directory}")
 
+    def get_total_dir_words(self):
+        """Gets the total number of words including extensions in wordlist"""
+
+        counter = 0
+        for _ in self.gen_wordlist(self.wordlist, self.extension):
+            counter += 1
+
+        return counter + 1
+
     @staticmethod
     def get_total_words(wordlist):
         """Gets the total number of words in a wordlist"""
@@ -260,13 +267,32 @@ class BrowserBase:
         return total_words
 
     @staticmethod
-    def gen_wordlist(wordlist):
+    def gen_wordlist(wordlist, extension=None):
         """Generates words from wordlist"""
 
+        dir_set = set()
         with open(wordlist, "r") as file:
             while True:
                 line = file.readline()
                 if line:
-                    yield line.strip()
+                    line = line.strip()
+                    if extension is not None:
+                        line_split = line.rsplit(".", 1)
+                        if len(line_split) == 1:
+                            ext_line = line + extension
+                            # print("[!!!]", line+extension)
+                            if ext_line not in dir_set:
+                                dir_set.add(ext_line)
+                                yield ext_line
+                        else:
+                            ext_line = line_split[0] + extension
+                            # print("[!!!]", line_split[0]+extension)
+                            if ext_line not in dir_set:
+                                dir_set.add(ext_line)
+                                yield ext_line
+                    # print("[!!!]", line)
+                    if line not in dir_set:
+                        dir_set.add(line)
+                        yield line
                 else:
                     break

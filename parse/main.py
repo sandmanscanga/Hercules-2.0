@@ -11,10 +11,13 @@ def get_browser(argparse):
     arg_parser.build_parser(argparse)
     arg_parser.add_arguments()
     raw_args = arg_parser.parse_args()
+    # arg_parser.display_raw()
 
     valid_args = Validation(raw_args)
     valid_args.validate()
+    # valid_args.display_validated()
 
     browser = Browser(valid_args)
+    # browser.display_final()
 
     return browser

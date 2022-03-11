@@ -34,6 +34,20 @@ class DefinitionBase:
         return args, kwargs
 
     @staticmethod
+    def extension():
+        """Extension to apply to directory wordlist"""
+
+        args = ("-x", "--extension")
+        kwargs = dict(
+            dest="extension",
+            metavar="extension",
+            required=False,
+            type=str,
+            help="specify an extension to apply to directory wordlist"
+        )
+        return args, kwargs
+
+    @staticmethod
     def username():
         """Use a single username instead of a wordlist"""
 

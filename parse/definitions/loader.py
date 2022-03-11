@@ -16,6 +16,7 @@ class DefinitionLoader(DefinitionBase):
         definitions = [
             self.runmode(),
             self.wordlist(),
+            self.extension(),
             self.username(),
             self.userfile(),
             self.password(),

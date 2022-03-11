@@ -38,7 +38,10 @@ def main(browser):
                 threader.add_job(data)
 
     else:
-        for directory in browser.gen_wordlist(browser.wordlist):
+        for directory in browser.gen_wordlist(
+            browser.wordlist,
+            extension=browser.extension
+        ):
             data = (browser, directory)
             threader.add_job(data)
 

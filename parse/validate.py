@@ -8,6 +8,7 @@ class Validation(ValidationBase):
     def __init__(self, raw_args):
         self.raw_args = raw_args
         self.runmode = None
+        self.extension = None
         self.wordlist = None
         self.username = None
         self.userfile = None
@@ -32,6 +33,7 @@ class Validation(ValidationBase):
 
         self.validate_runmode()
         self.validate_wordlist()
+        self.validate_extension()
         self.validate_user()
         self.validate_pass()
         self.validate_method()
@@ -49,6 +51,7 @@ class Validation(ValidationBase):
         print("[*] Displaying validated arguments...")
         print(f"[*] runmode       :  {self.runmode}      ")
         print(f"[*] wordlist      :  {self.wordlist}     ")
+        print(f"[*] extension     :  {self.extension}    ")
         print(f"[*] username      :  {self.username}     ")
         print(f"[*] userfile      :  {self.userfile}     ")
         print(f"[*] password      :  {self.password}     ")

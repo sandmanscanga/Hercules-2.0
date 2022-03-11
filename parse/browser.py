@@ -8,6 +8,7 @@ class Browser(BrowserBase):
     def __init__(self, valid_args):
         self.runmode = valid_args.runmode
         self.wordlist = valid_args.wordlist
+        self.extension = valid_args.extension
         self.username = valid_args.username
         self.userfile = valid_args.userfile
         self.password = valid_args.password
@@ -49,6 +50,7 @@ class Browser(BrowserBase):
         print("[*] Displaying final arguments...")
         print(f"[*] runmode       :  {self.runmode}      ")
         print(f"[*] wordlist      :  {self.wordlist}     ")
+        print(f"[*] extension     :  {self.extension}    ")
         print(f"[*] username      :  {self.username}     ")
         print(f"[*] userfile      :  {self.userfile}     ")
         print(f"[*] password      :  {self.password}     ")

@@ -31,6 +31,17 @@ class ValidationBase(ValidationBaseUtils):
 
             self.wordlist = wordlist
 
+    def validate_extension(self):
+        """Validates extension to apply to wordlist"""
+
+        extension = self.raw_args.extension
+        if self.runmode == "DIR":
+            if extension is not None:
+                if not extension.startswith("."):
+                    extension = f".{extension}"
+
+        self.extension = extension
+
     def validate_user(self):
         """Validates username arguments"""
 
