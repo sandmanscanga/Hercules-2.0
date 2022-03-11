@@ -51,6 +51,8 @@ def main(browser):
             browser.display_found_creds()
         else:
             browser.display_found_dirs()
+    else:
+        print("[*] Finished" + " "*90)
 
 
 if __name__ == "__main__":
