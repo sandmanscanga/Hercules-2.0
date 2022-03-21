@@ -27,6 +27,7 @@ class Validation(ValidationBase):
         self.cookie = None
         self.finish = None
         self.verbose = None
+        self.ssl_no_verify = None
 
     def validate(self):
         """Run validation on raw arguments"""
@@ -49,23 +50,24 @@ class Validation(ValidationBase):
         """Display validated arguments"""
 
         print("[*] Displaying validated arguments...")
-        print(f"[*] runmode       :  {self.runmode}      ")
-        print(f"[*] wordlist      :  {self.wordlist}     ")
-        print(f"[*] extension     :  {self.extension}    ")
-        print(f"[*] username      :  {self.username}     ")
-        print(f"[*] userfile      :  {self.userfile}     ")
-        print(f"[*] password      :  {self.password}     ")
-        print(f"[*] passfile      :  {self.passfile}     ")
-        print(f"[*] method        :  {self.method}       ")
-        print(f"[*] url           :  {self.url}          ")
-        print(f"[*] payload       :  {self.payload}      ")
-        print(f"[*] success_msg   :  {self.success_msg}  ")
-        print(f"[*] success_code  :  {self.success_code} ")
-        print(f"[*] failure_msg   :  {self.failure_msg}  ")
-        print(f"[*] failure_code  :  {self.failure_code} ")
-        print(f"[*] outfile       :  {self.outfile}      ")
-        print(f"[*] threads       :  {self.threads}      ")
-        print(f"[*] agent         :  {self.agent}        ")
-        print(f"[*] cookie        :  {self.cookie}       ")
-        print(f"[*] finish        :  {self.finish}       ")
-        print(f"[*] verbose       :  {self.verbose}      ")
+        print(f"[*] runmode       :  {self.runmode}       ")
+        print(f"[*] wordlist      :  {self.wordlist}      ")
+        print(f"[*] extension     :  {self.extension}     ")
+        print(f"[*] username      :  {self.username}      ")
+        print(f"[*] userfile      :  {self.userfile}      ")
+        print(f"[*] password      :  {self.password}      ")
+        print(f"[*] passfile      :  {self.passfile}      ")
+        print(f"[*] method        :  {self.method}        ")
+        print(f"[*] url           :  {self.url}           ")
+        print(f"[*] payload       :  {self.payload}       ")
+        print(f"[*] success_msg   :  {self.success_msg}   ")
+        print(f"[*] success_code  :  {self.success_code}  ")
+        print(f"[*] failure_msg   :  {self.failure_msg}   ")
+        print(f"[*] failure_code  :  {self.failure_code}  ")
+        print(f"[*] outfile       :  {self.outfile}       ")
+        print(f"[*] threads       :  {self.threads}       ")
+        print(f"[*] agent         :  {self.agent}         ")
+        print(f"[*] cookie        :  {self.cookie}        ")
+        print(f"[*] finish        :  {self.finish}        ")
+        print(f"[*] verbose       :  {self.verbose}       ")
+        print(f"[*] ssl_no_verify :  {self.ssl_no_verify} ")

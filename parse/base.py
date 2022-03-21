@@ -95,6 +95,9 @@ class BrowserBase:
                 "allow_redirects": False
             }
 
+        if self.ssl_no_verify is True:
+            browser_kwargs["verify"] = False
+
         return deepcopy(browser_kwargs)
 
     def check_brute_response(self, response):

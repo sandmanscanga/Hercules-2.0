@@ -1,7 +1,12 @@
 """Module for running the Hercules attack script"""
+import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
 from parse.main import get_browser
 from threader.main import Threader
 from attack.main import attack_dir, attack_brute
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
 def main(browser):

@@ -104,8 +104,9 @@ class ValidationBase(ValidationBaseUtils):
             _port = 443
 
         query = parsed_url.query
-        if query != "":
-            raise Exception("URL query must be set in payload argument")
+        if self.method != "POST":
+            if query != "":
+                raise Exception("URL query must be set in payload argument")
 
         netloc = parsed_url.netloc
         if ":" not in netloc:
@@ -130,7 +131,10 @@ class ValidationBase(ValidationBaseUtils):
         if uripath == "":
             uripath = "/"
 
-        self.url = f"{scheme}://{netloc}{uripath}"
+        if self.method == "POST" and query:
+            self.url = f"{scheme}://{netloc}{uripath}?{query}"
+        else:
+            self.url = f"{scheme}://{netloc}{uripath}"
 
     def validate_payload(self):
         """Validates payload argument"""
@@ -235,8 +239,10 @@ class ValidationBase(ValidationBaseUtils):
 
         finish = self.raw_args.finish
         verbose = self.raw_args.verbose
+        ssl_no_verify = self.raw_args.ssl_no_verify
 
         if self.runmode == "BRUTE":
             self.finish = finish
 
         self.verbose = verbose
+        self.ssl_no_verify = ssl_no_verify

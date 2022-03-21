@@ -287,3 +287,17 @@ class DefinitionBase:
             help="specify verbose mode to show every request"
         )
         return args, kwargs
+
+    @staticmethod
+    def ssl_no_verify():
+        """Don't verify SSL certificate"""
+
+        args = ("--ssl-no-verify",)
+        kwargs = dict(
+            dest="ssl_no_verify",
+            required=False,
+            action="store_true",
+            default=False,
+            help="specify ssl verification flag"
+        )
+        return args, kwargs

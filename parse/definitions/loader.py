@@ -33,7 +33,8 @@ class DefinitionLoader(DefinitionBase):
             self.agent(),
             self.cookie(),
             self.finish(),
-            self.verbose()
+            self.verbose(),
+            self.ssl_no_verify()
         ]
         self.definitions = definitions
 
