@@ -32,7 +32,10 @@ class Browser(BrowserBase):
         user_key, pass_key = self.get_payload_keys()
         total_usernames = self.get_total_usernames()
         total_passwords = self.get_total_passwords()
-        total_directories = self.get_total_directories()
+        if self.runmode == "DIR":
+            total_directories = self.get_total_directories()
+        else:
+            total_directories = None
 
         self.driver = driver
         self.data_key = data_key
